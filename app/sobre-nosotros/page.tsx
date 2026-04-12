@@ -3,101 +3,124 @@ import Link from 'next/link'
 
 export const metadata: Metadata = { title: 'Sobre nosotros — Reachly' }
 
-const TEAM = [
-  { nombre: 'Sofía Ramírez', rol: 'CEO & Co-fundadora', iniciales: 'SR' },
-  { nombre: 'Lucas Mendoza', rol: 'CTO & Co-fundador', iniciales: 'LM' },
-  { nombre: 'Valentina Torres', rol: 'Head of Growth', iniciales: 'VT' },
-  { nombre: 'Matías Pérez', rol: 'Lead Designer', iniciales: 'MP' },
+const VALUES = [
+  { icon: '🔍', titulo: 'Transparencia', desc: 'Sin letra pequeña. Métricas reales, precios claros y procesos abiertos para marcas e influencers por igual.' },
+  { icon: '⚡', titulo: 'Velocidad', desc: 'Sabemos que el tiempo es dinero. Diseñamos cada flujo para que puedas pasar de idea a campaña activa en horas.' },
+  { icon: '🤝', titulo: 'Confianza', desc: 'Verificamos cada perfil y protegemos a ambas partes. Las colaboraciones que facilita Reachly están construidas sobre datos y acuerdos reales.' },
+  { icon: '🌎', titulo: 'Impacto LATAM', desc: 'Somos de la región y para la región. Entendemos la cultura, los mercados y los creadores de contenido de Latinoamérica mejor que nadie.' },
 ]
 
-const VALUES = [
-  { icon: '🤝', titulo: 'Autenticidad', desc: 'Creemos en conexiones reales entre marcas e influencers que comparten valores genuinos.' },
-  { icon: '🚀', titulo: 'Innovación', desc: 'Usamos datos e inteligencia para hacer matchmaking más inteligente cada día.' },
-  { icon: '🌍', titulo: 'LATAM First', desc: 'Construimos específicamente para el mercado latinoamericano, con su cultura y particularidades.' },
-  { icon: '📊', titulo: 'Transparencia', desc: 'Métricas claras, precios justos y procesos honestos para todos.' },
+const TEAM = [
+  { iniciales: 'WJ', color: '#4A1FA8', nombre: 'Walter Jaramillo', rol: 'Co-Founder & CEO', bio: 'Ingeniero industrial matemático, apasionado por la innovación y las operaciones. Lidera la visión y estrategia de Reachly.' },
+  { iniciales: 'MS', color: '#1D9E75', nombre: 'Matías Salinas', rol: 'Co-Founder & CEO', bio: 'Ingeniero industrial con foco en tecnología y operaciones. Diseña los sistemas que hacen que Reachly escale en toda la región.' },
+  { iniciales: 'BF', color: '#BA7517', nombre: 'Benjamín Fuentes', rol: 'CMO', bio: 'Publicista con visión estratégica en marketing y comunicación de marca. Lidera el posicionamiento y crecimiento de Reachly en LATAM.' },
 ]
 
 export default function SobreNosotrosPage() {
   return (
-    <div className="max-w-[1100px] mx-auto px-[5%] py-12">
+    <div className="bg-background">
       {/* Hero */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold text-foreground mb-4">La plataforma que conecta<br />el talento con las marcas</h1>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          Reachly nació en 2023 con una misión clara: hacer que la colaboración entre influencers y marcas en LATAM sea simple, transparente y efectiva.
-        </p>
+      <div className="bg-gradient-to-br from-[#4A1FA8] to-[#2E1270] text-center px-[5%] py-16">
+        <div className="inline-block bg-white/10 border border-white/[.18] rounded-full px-4 py-1.5 text-xs text-[#C4AEFA] mb-5">Nuestra historia</div>
+        <h1 className="text-white text-[clamp(28px,4vw,48px)] font-bold leading-tight">
+          Construyendo el futuro<br />del influencer marketing
+        </h1>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        {[
-          { valor: '10K+', label: 'Influencers activos' },
-          { valor: '500+', label: 'Marcas registradas' },
-          { valor: '2.4M', label: 'Alcance combinado' },
-          { valor: '12', label: 'Países en LATAM' },
-        ].map(s => (
-          <div key={s.label} className="bg-card border border-border rounded-xl p-6 text-center">
-            <div className="text-3xl font-bold text-[#4A1FA8]">{s.valor}</div>
-            <div className="text-sm text-muted-foreground mt-1">{s.label}</div>
+      {/* Misión */}
+      <section className="py-20 px-[5%]">
+        <div className="max-w-[1100px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[.12em] text-[#7B52D4] mb-3">Nuestra misión</p>
+            <h2 className="text-[clamp(22px,3vw,36px)] font-bold text-foreground leading-tight mb-5">Conectar talento con oportunidad a escala</h2>
+            <p className="text-base text-muted-foreground leading-relaxed mb-4">Reachly nació en 2026 con una convicción simple: el marketing de influencers era demasiado manual, opaco y poco accesible para la mayoría de las marcas y creadores de contenido de Latinoamérica.</p>
+            <p className="text-base text-muted-foreground leading-relaxed">Construimos una plataforma que elimina la fricción en cada etapa del proceso — desde la búsqueda del influencer correcto hasta la medición del impacto real de la campaña — para que las marcas puedan escalar y los creadores puedan monetizar su trabajo de forma justa y transparente.</p>
           </div>
-        ))}
-      </div>
-
-      {/* Historia */}
-      <div className="bg-gradient-to-br from-[#4A1FA8] to-[#2E1270] rounded-2xl p-8 text-white mb-16">
-        <h2 className="text-2xl font-bold mb-4">Nuestra historia</h2>
-        <p className="text-white/80 leading-relaxed mb-4">
-          Todo empezó cuando nuestra fundadora, Sofía, era gerente de marketing en una startup y pasaba semanas buscando influencers manualmente en Instagram. Cada campaña era un caos de DMs, hojas de cálculo y negociaciones interminables.
-        </p>
-        <p className="text-white/80 leading-relaxed">
-          En 2023 decidimos que había una mejor forma. Reachly fue construido para eliminar la fricción y darle a ambos lados de la ecuación — influencers y marcas — las herramientas que necesitan para conectar de forma profesional.
-        </p>
-      </div>
+          <div className="bg-gradient-to-br from-[#4A1FA8] to-[#2E1270] rounded-2xl p-7">
+            <div className="grid grid-cols-2 gap-6">
+              {[
+                { n: '2026', l: 'Año de fundación' },
+                { n: '5', l: 'Países activos en LATAM' },
+                { n: '12.4K+', l: 'Influencers en la plataforma' },
+                { n: '3.2K+', l: 'Marcas que confían en nosotros' },
+              ].map(s => (
+                <div key={s.l}>
+                  <div className="text-white text-3xl font-bold mb-1">{s.n}</div>
+                  <div className="text-white/50 text-xs">{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Valores */}
-      <div className="mb-16">
-        <h2 className="text-2xl font-bold text-foreground mb-8 text-center">Nuestros valores</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {VALUES.map(v => (
-            <div key={v.titulo} className="bg-card border border-border rounded-xl p-6">
-              <div className="text-3xl mb-3">{v.icon}</div>
-              <h3 className="font-bold text-foreground mb-2">{v.titulo}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
+      <section className="py-16 px-[5%] bg-[#F4F2FB] dark:bg-[#0D0A1A]">
+        <div className="max-w-[1100px] mx-auto">
+          <p className="text-xs font-semibold uppercase tracking-[.12em] text-[#7B52D4] mb-10">Nuestros valores</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {VALUES.map(v => (
+              <div key={v.titulo} className="bg-white dark:bg-card border border-border rounded-2xl p-6">
+                <div className="text-[28px] mb-3">{v.icon}</div>
+                <h3 className="text-base font-bold text-foreground mb-2">{v.titulo}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats band */}
+      <div className="bg-[#1A0A3D] py-10 px-[5%]">
+        <div className="max-w-[1100px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+          {[
+            { n: '89K+', l: 'Matches exitosos' },
+            { n: '$12M+', l: 'En pagos procesados' },
+            { n: '4.9/5', l: 'Satisfacción promedio' },
+            { n: '97%', l: 'Retención anual' },
+          ].map(s => (
+            <div key={s.l}>
+              <div className="text-white text-3xl font-bold mb-1.5">{s.n}</div>
+              <div className="text-white/45 text-xs uppercase tracking-widest">{s.l}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Equipo */}
-      <div className="mb-16">
-        <h2 className="text-2xl font-bold text-foreground mb-8 text-center">El equipo</h2>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-          {TEAM.map(m => (
-            <div key={m.nombre} className="bg-card border border-border rounded-xl p-6 text-center">
-              <div className="w-16 h-16 rounded-full mx-auto mb-4 overflow-hidden">
-                <svg width="64" height="64" viewBox="0 0 64 64">
-                  <circle cx="32" cy="32" r="32" fill="#4A1FA8" />
-                  <text x="32" y="32" textAnchor="middle" dominantBaseline="central" fill="white" fontSize="20" fontWeight="700" fontFamily="sans-serif">{m.iniciales}</text>
-                </svg>
+      <section className="py-20 px-[5%]">
+        <div className="max-w-[1100px] mx-auto">
+          <p className="text-xs font-semibold uppercase tracking-[.12em] text-[#7B52D4] mb-10">El equipo</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {TEAM.map(m => (
+              <div key={m.nombre} className="bg-card border border-border rounded-2xl p-7 text-center">
+                <div className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold text-white shadow-lg" style={{ background: m.color }}>
+                  {m.iniciales}
+                </div>
+                <p className="text-[17px] font-bold text-foreground mb-1">{m.nombre}</p>
+                <p className="text-xs text-[#9B8EC4] font-medium tracking-wide mb-3">{m.rol}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{m.bio}</p>
               </div>
-              <p className="font-bold text-foreground text-sm">{m.nombre}</p>
-              <p className="text-xs text-muted-foreground mt-1">{m.rol}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* CTA */}
-      <div className="text-center bg-card border border-border rounded-2xl p-10">
-        <h2 className="text-xl font-bold text-foreground mb-3">¿Querés sumarte?</h2>
-        <p className="text-muted-foreground text-sm mb-6">Somos influencer, marca o simplemente creés en lo que hacemos.</p>
-        <div className="flex flex-wrap gap-3 justify-center">
-          <Link href="/registro" className="bg-[#4A1FA8] text-white font-semibold text-sm px-6 py-3 rounded-xl hover:bg-[#6C3BF5] transition-colors">
-            Crear cuenta gratis
-          </Link>
-          <Link href="/careers" className="border border-border text-foreground font-medium text-sm px-6 py-3 rounded-xl hover:bg-accent transition-colors">
-            Ver posiciones abiertas
-          </Link>
+      <div className="py-16 px-[5%]">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="bg-white dark:bg-card border border-border rounded-2xl p-12 text-center">
+            <h3 className="text-2xl font-bold text-foreground mb-2">¿Querés ser parte de lo que construimos?</h3>
+            <p className="text-muted-foreground text-sm mb-7">Únete como influencer, marca, o sumá a nuestra causa como parte del equipo.</p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link href="/registro" className="bg-[#4A1FA8] text-white font-semibold text-sm px-7 py-3 rounded-xl hover:bg-[#6C3BF5] transition-colors">
+                Crear cuenta gratis
+              </Link>
+              <Link href="/careers" className="border border-border text-foreground font-medium text-sm px-7 py-3 rounded-xl hover:bg-accent transition-colors">
+                Ver posiciones abiertas
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

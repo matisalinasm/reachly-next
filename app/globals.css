@@ -152,3 +152,31 @@
 .animate-fade-up   { animation: fadeUp .4s ease both; }
 .animate-scale-in  { animation: scaleIn .25s ease both; }
 .animate-slide-down { animation: slideDown .2s ease both; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 30s linear infinite; }
+.animate-marquee:hover { animation-play-state: paused; }
+
+@keyframes floatA {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%       { transform: translateY(-18px) rotate(-2deg); }
+}
+@keyframes floatB {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50%       { transform: translateY(-14px) rotate(2deg); }
+}
+@keyframes floatC {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes floatD {
+  0%, 100% { transform: translateY(0) rotate(1.5deg); }
+  50%       { transform: translateY(-12px) rotate(1.5deg); }
+}
+.animate-float-a { animation: floatA 6s ease-in-out infinite; }
+.animate-float-b { animation: floatB 5s ease-in-out infinite; }
+.animate-float-c { animation: floatC 4.5s ease-in-out infinite; }
+.animate-float-d { animation: floatD 6s ease-in-out infinite; }
