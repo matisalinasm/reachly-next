@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useUserStore } from '@/store/useUserStore'
 import { cn } from '@/lib/utils'
+import { supabase } from '@/lib/supabase'
 
 type Tipo = 'influencer' | 'marca'
 type Step = 1 | 2 | 3
@@ -30,6 +31,8 @@ export default function RegistroPage() {
   const [tipo, setTipo] = useState<Tipo | null>(null)
   const [form, setForm] = useState({ nombre: '', email: '', password: '' })
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [loading, setLoading] = useState(false)
+  const [serverError, setServerError] = useState('')
 
   function validate() {
     const e: Record<string, string> = {}
@@ -42,8 +45,29 @@ export default function RegistroPage() {
     return Object.keys(e).length === 0
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (!validate()) return
+    setLoading(true)
+    setServerError('')
+
+    const { error } = await supabase.auth.signUp({
+      email: form.email,
+      password: form.password,
+      options: {
+        data: {
+          nombre: form.nombre,
+          tipo: tipo,
+        },
+      },
+    })
+
+    setLoading(false)
+
+    if (error) {
+      setServerError(error.message)
+      return
+    }
+
     setUser({
       nombre: form.nombre,
       email: form.email,
@@ -132,15 +156,19 @@ export default function RegistroPage() {
                   </div>
                 ))}
               </div>
+              {serverError && (
+                <p className="text-xs text-red-500 mb-4 text-center">{serverError}</p>
+              )}
               <div className="flex gap-3">
                 <button onClick={() => setStep(1)} className="px-5 py-3 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-xl hover:bg-accent">
                   Atrás
                 </button>
                 <button
                   onClick={handleSubmit}
-                  className="flex-1 bg-[#4A1FA8] text-white font-semibold text-sm py-3 rounded-xl hover:bg-[#6C3BF5] transition-colors"
+                  disabled={loading}
+                  className="flex-1 bg-[#4A1FA8] text-white font-semibold text-sm py-3 rounded-xl hover:bg-[#6C3BF5] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Crear cuenta
+                  {loading ? 'Creando cuenta...' : 'Crear cuenta'}
                 </button>
               </div>
             </div>

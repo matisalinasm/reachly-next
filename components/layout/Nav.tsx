@@ -19,6 +19,14 @@ const NAV_LINKS = [
   { href: '/favoritos', label: 'Guardados' },
 ]
 
+const LANDING_NAV_LINKS = [
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#como-funciona', label: 'Cómo funciona' },
+  { href: '#casos', label: 'Casos de éxito' },
+  { href: '#precios', label: 'Precios' },
+  { href: '#faq', label: 'FAQ' },
+]
+
 export function Nav() {
   const pathname = usePathname()
   const router = useRouter()
@@ -104,6 +112,9 @@ export function Nav() {
     router.push(r.type === 'influencer' ? `/influencer/${r.id}` : `/campanas/${r.id}`)
   }
 
+  const isLanding = pathname === '/landing'
+  const activeLinks = isLanding ? LANDING_NAV_LINKS : NAV_LINKS
+
   return (
     <>
       <nav
@@ -114,44 +125,79 @@ export function Nav() {
         )}
       >
         {/* Brand */}
-        <Link href="/landing" className="hover:opacity-90 transition-opacity">
+        <Link href="/landing" className="hover:opacity-90 transition-opacity flex-shrink-0">
           <img src="/logo-reachly-white.svg" alt="Reachly" className="h-7 w-auto" />
         </Link>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-7">
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={cn(
-                'text-sm transition-colors duration-150',
-                pathname === href ? 'text-white font-medium' : 'text-white/70 hover:text-white'
-              )}
+          {/* Search icon — only on landing */}
+          {isLanding && (
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="text-white/70 hover:text-white transition-colors"
+              aria-label="Buscar"
             >
-              {label}
-            </Link>
+              <Search className="w-4 h-4" />
+            </button>
+          )}
+
+          {activeLinks.map(({ href, label }) => (
+            isLanding ? (
+              <a
+                key={href}
+                href={href}
+                className="text-sm text-white/70 hover:text-white transition-colors duration-150"
+              >
+                {label}
+              </a>
+            ) : (
+              <Link
+                key={href}
+                href={href}
+                className={cn(
+                  'text-sm transition-colors duration-150',
+                  pathname === href ? 'text-white font-medium' : 'text-white/70 hover:text-white'
+                )}
+              >
+                {label}
+              </Link>
+            )
           ))}
+
+          {/* Plataforma CTA — only on landing */}
+          {isLanding && (
+            <Link
+              href="/"
+              className="text-sm text-white font-medium hover:text-[#C4AEFA] transition-colors duration-150"
+            >
+              Plataforma →
+            </Link>
+          )}
         </div>
 
         {/* Right actions */}
         <div className="flex items-center gap-2">
-          {/* Search trigger */}
-          <button
-            onClick={() => setSearchOpen(true)}
-            className="hidden sm:flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/70 hover:text-white border border-white/15 rounded-lg px-3 py-1.5 text-sm transition-all duration-150"
-            aria-label="Buscar"
-          >
-            <Search className="w-3.5 h-3.5" />
-            <span className="text-xs hidden lg:inline">Buscar</span>
-            <kbd className="hidden lg:inline text-[10px] bg-white/10 px-1.5 py-0.5 rounded">⌘K</kbd>
-          </button>
-          <button
-            onClick={() => setSearchOpen(true)}
-            className="sm:hidden p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/12 transition-colors"
-          >
-            <Search className="w-4 h-4" />
-          </button>
+          {/* Search trigger — only on non-landing */}
+          {!isLanding && (
+            <>
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="hidden sm:flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/70 hover:text-white border border-white/15 rounded-lg px-3 py-1.5 text-sm transition-all duration-150"
+                aria-label="Buscar"
+              >
+                <Search className="w-3.5 h-3.5" />
+                <span className="text-xs hidden lg:inline">Buscar</span>
+                <kbd className="hidden lg:inline text-[10px] bg-white/10 px-1.5 py-0.5 rounded">⌘K</kbd>
+              </button>
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="sm:hidden p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/12 transition-colors"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+            </>
+          )}
 
           {/* Theme toggle */}
           <button
@@ -162,12 +208,12 @@ export function Nav() {
             {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
 
-          {/* Register */}
+          {/* Login / Register */}
           <Link
-            href="/registro"
+            href="/login"
             className="hidden sm:inline-flex items-center bg-white text-[#4A1FA8] font-semibold text-sm px-4 py-2 rounded-lg hover:bg-[#F0E8FF] transition-colors duration-150"
           >
-            Registrarse
+            {isLanding ? 'Iniciar sesión' : 'Registrarse'}
           </Link>
 
           {/* Hamburger */}
@@ -185,25 +231,45 @@ export function Nav() {
       {menuOpen && (
         <div className="md:hidden fixed top-16 inset-x-0 z-40 bg-[#4A1FA8] dark:bg-[#1A1428] border-t border-white/10 shadow-lg animate-slide-down">
           <div className="flex flex-col gap-1 p-5">
-            {NAV_LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                className={cn(
-                  'text-base py-2 px-3 rounded-lg transition-colors',
-                  pathname === href ? 'text-white bg-white/15 font-medium' : 'text-white/80 hover:text-white hover:bg-white/10'
-                )}
-              >
-                {label}
-              </Link>
+            {activeLinks.map(({ href, label }) => (
+              isLanding ? (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-base py-2 px-3 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                >
+                  {label}
+                </a>
+              ) : (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMenuOpen(false)}
+                  className={cn(
+                    'text-base py-2 px-3 rounded-lg transition-colors',
+                    pathname === href ? 'text-white bg-white/15 font-medium' : 'text-white/80 hover:text-white hover:bg-white/10'
+                  )}
+                >
+                  {label}
+                </Link>
+              )
             ))}
+            {isLanding && (
+              <Link
+                href="/"
+                onClick={() => setMenuOpen(false)}
+                className="text-base py-2 px-3 rounded-lg text-white font-medium hover:bg-white/10 transition-colors"
+              >
+                Plataforma →
+              </Link>
+            )}
             <Link
-              href="/registro"
+              href={isLanding ? '/login' : '/registro'}
               onClick={() => setMenuOpen(false)}
               className="mt-3 text-center bg-white text-[#4A1FA8] font-semibold text-sm px-4 py-2.5 rounded-lg hover:bg-[#F0E8FF] transition-colors"
             >
-              Registrarse
+              {isLanding ? 'Iniciar sesión' : 'Registrarse'}
             </Link>
           </div>
         </div>

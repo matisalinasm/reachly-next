@@ -4,20 +4,39 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useUserStore } from '@/store/useUserStore'
 import { cn } from '@/lib/utils'
+import { supabase } from '@/lib/supabase'
 
 export default function LoginPage() {
   const router = useRouter()
   const { setUser } = useUserStore()
   const [form, setForm] = useState({ email: '', password: '' })
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    setTimeout(() => {
-      setUser({ nombre: form.email.split('@')[0], email: form.email, tipo: 'influencer' })
-      router.push('/')
-    }, 800)
+    setError('')
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: form.email,
+      password: form.password,
+    })
+
+    setLoading(false)
+
+    if (error) {
+      setError('Email o contraseña incorrectos')
+      return
+    }
+
+    const meta = data.user.user_metadata
+    setUser({
+      nombre: meta.nombre ?? form.email.split('@')[0],
+      email: form.email,
+      tipo: meta.tipo ?? 'influencer',
+    })
+    router.push('/')
   }
 
   return (
@@ -58,6 +77,7 @@ export default function LoginPage() {
                 className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground outline-none focus:border-[#7B52D4] focus:ring-2 focus:ring-[#7B52D4]/10 transition-all"
               />
             </div>
+            {error && <p className="text-xs text-red-500 text-center">{error}</p>}
             <button
               type="submit"
               disabled={loading}

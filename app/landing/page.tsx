@@ -76,6 +76,7 @@ export default function LandingPage() {
 
   return (
     <div className="bg-background">
+
       {/* ══ HERO ══════════════════════════════════════════════════ */}
       <section className="relative bg-gradient-to-br from-[#4A1FA8] to-[#2E1270] overflow-hidden px-[5%] pt-20 pb-16 md:pt-28 md:pb-20">
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 65% 40%, rgba(123,82,212,.3) 0%, transparent 60%)' }} />
