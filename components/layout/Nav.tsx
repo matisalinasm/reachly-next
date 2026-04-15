@@ -114,9 +114,8 @@ export function Nav() {
         )}
       >
         {/* Brand */}
-        <Link href="/landing" className="flex flex-col leading-none text-white hover:opacity-90 transition-opacity">
-          <span className="text-xl font-bold tracking-tight">Reachly</span>
-          <span className="text-[10px] font-normal text-[#B89EF0] uppercase tracking-widest">influencer platform</span>
+        <Link href="/landing" className="hover:opacity-90 transition-opacity">
+          <img src="/logo-reachly.svg" alt="Reachly" className="h-7 w-auto brightness-0 invert" />
         </Link>
 
         {/* Desktop links */}

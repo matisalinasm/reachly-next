@@ -24,7 +24,7 @@ export default function LoginPage() {
     <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-5 py-12">
       <div className="w-full max-w-[400px]">
         <div className="text-center mb-8">
-          <div className="text-3xl font-bold text-[#4A1FA8] mb-2">Reachly</div>
+          <img src="/logo-reachly.svg" alt="Reachly" className="h-8 w-auto mx-auto mb-2" />
           <h1 className="text-xl font-bold text-foreground">Iniciar sesión</h1>
           <p className="text-muted-foreground text-sm mt-1">Bienvenido de vuelta</p>
         </div>
