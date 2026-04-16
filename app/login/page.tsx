@@ -35,6 +35,9 @@ export default function LoginPage() {
       nombre: meta.nombre ?? form.email.split('@')[0],
       email: form.email,
       tipo: meta.tipo ?? 'influencer',
+      bio: meta.bio,
+      ubicacion: meta.ubicacion,
+      redes: meta.redes,
     })
     router.push('/')
   }

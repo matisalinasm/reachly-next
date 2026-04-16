@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useUserStore } from '@/store/useUserStore'
 import { cn } from '@/lib/utils'
+import { supabase } from '@/lib/supabase'
 
 const CATEGORIAS = ['Moda', 'Tech', 'Fitness', 'Gastronomía', 'Viajes', 'Gaming', 'Música', 'Arte', 'Educación', 'Lifestyle']
 const OBJETIVOS = ['Conseguir campañas', 'Hacer networking', 'Crecer mi audiencia', 'Encontrar influencers', 'Publicar campañas', 'Analizar tendencias']
@@ -33,7 +34,17 @@ export default function OnboardingPage() {
     setArr(arr.includes(val) ? arr.filter(v => v !== val) : [...arr, val])
   }
 
-  function finish() {
+  async function finish() {
+    await supabase.auth.updateUser({
+      data: {
+        nombre,
+        bio,
+        ubicacion,
+        redes,
+        categorias: selectedCats,
+        objetivos: selectedObjs,
+      },
+    })
     setUser({ nombre, bio, ubicacion, tipo: user?.tipo ?? 'influencer', redes })
     completeOnboarding()
     setStep(4)
