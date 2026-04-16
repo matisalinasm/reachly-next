@@ -36,13 +36,16 @@ export default function OnboardingPage() {
 
   async function finish() {
     const { data: { user: authUser } } = await supabase.auth.getUser()
+    if (!authUser) return
 
-    await Promise.all([
+    const tipo = user?.tipo ?? authUser.user_metadata?.tipo ?? 'influencer'
+
+    const ops: Promise<any>[] = [
       supabase.auth.updateUser({
         data: { nombre, bio, ubicacion, redes, categorias: selectedCats, objetivos: selectedObjs },
       }),
       supabase.from('profiles').upsert({
-        id: authUser!.id,
+        id: authUser.id,
         nombre,
         bio,
         ubicacion,
@@ -51,9 +54,26 @@ export default function OnboardingPage() {
         objetivos: selectedObjs,
         updated_at: new Date().toISOString(),
       }),
-    ])
+    ]
 
-    setUser({ nombre, bio, ubicacion, tipo: user?.tipo ?? 'influencer', redes })
+    // Si es influencer, crear/actualizar registro en la tabla influencers
+    if (tipo === 'influencer') {
+      ops.push(
+        supabase.from('influencers').upsert({
+          profile_id: authUser.id,
+          full_name: nombre,
+          bio,
+          location: ubicacion,
+          followers_count: 0,
+          engagement_rate: 0,
+          updated_at: new Date().toISOString(),
+        }, { onConflict: 'profile_id' })
+      )
+    }
+
+    await Promise.all(ops)
+
+    setUser({ nombre, bio, ubicacion, tipo, redes })
     completeOnboarding()
     setStep(4)
   }

@@ -1,23 +1,16 @@
+import { createClient } from '@supabase/supabase-js'
 import type { Influencer } from '@/types/influencer'
 import type { Campana } from '@/types/campana'
 import { CATEGORIAS, CATEGORIA_COLORS } from '@/types/influencer'
 
-const BASE = 'https://jsonplaceholder.typicode.com'
-
-const MARCAS = [
-  'Nike Chile', 'Adidas LATAM', 'Samsung CL', 'Coca-Cola',
-  'Netflix', 'Spotify', 'Apple LATAM', 'Zara',
-]
-
-const PRESUPUESTOS = ['$500 - $1.000', '$1.000 - $3.000', '$3.000 - $8.000', '$8.000+']
+// Cliente público (anon key) — funciona server y client side para datos públicos
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 function getIniciales(nombre: string): string {
-  return nombre
-    .split(' ')
-    .slice(0, 2)
-    .map(p => p[0])
-    .join('')
-    .toUpperCase()
+  return nombre.split(' ').slice(0, 2).map(p => p[0]).join('').toUpperCase() || '?'
 }
 
 function getEstado(id: number, engagement: number): Influencer['estado'] {
@@ -27,27 +20,67 @@ function getEstado(id: number, engagement: number): Influencer['estado'] {
 }
 
 export async function fetchInfluencers(): Promise<Influencer[]> {
-  const res = await fetch(`${BASE}/users`, { next: { revalidate: 60 } })
-  if (!res.ok) throw new Error('Error fetching influencers')
-  const users = await res.json()
-  return users.map((u: { id: number; name: string }, i: number) => {
-    const engagement = parseFloat((u.id * 0.7 + 2.1).toFixed(1))
+  const { data, error } = await supabase
+    .from('influencers')
+    .select('id, full_name, bio, location, followers_count, engagement_rate, avatar_url, profile_id, profiles(categorias, redes)')
+    .order('followers_count', { ascending: false })
+
+  if (error || !data || data.length === 0) return []
+
+  return data.map((row: any) => {
+    const cats: string[] = row.profiles?.categorias ?? []
+    const categoria = cats[0] ?? 'Lifestyle'
+    const engagement = parseFloat((row.engagement_rate ?? 0).toFixed(1))
     return {
-      id: u.id,
-      nombre: u.name,
-      categoria: CATEGORIAS[i % CATEGORIAS.length],
-      seguidores: Math.floor(u.id * 13750 + 20000),
+      id: row.id,
+      nombre: row.full_name ?? 'Sin nombre',
+      categoria,
+      seguidores: row.followers_count ?? 0,
       engagement,
-      iniciales: getIniciales(u.name),
-      estado: getEstado(u.id, engagement),
+      iniciales: getIniciales(row.full_name ?? ''),
+      estado: getEstado(row.id, engagement),
+      bio: row.bio ?? undefined,
+      ubicacion: row.location ?? undefined,
+      avatar_url: row.avatar_url ?? undefined,
+      profile_id: row.profile_id,
     }
   })
 }
 
 export async function fetchInfluencer(id: number): Promise<Influencer | null> {
-  const influencers = await fetchInfluencers()
-  return influencers.find(inf => inf.id === id) ?? null
+  const { data, error } = await supabase
+    .from('influencers')
+    .select('id, full_name, bio, location, followers_count, engagement_rate, avatar_url, profile_id, profiles(categorias, redes)')
+    .eq('id', id)
+    .single()
+
+  if (error || !data) return null
+
+  const row = data as any
+  const cats: string[] = row.profiles?.categorias ?? []
+  const categoria = cats[0] ?? 'Lifestyle'
+  const engagement = parseFloat((row.engagement_rate ?? 0).toFixed(1))
+
+  return {
+    id: row.id,
+    nombre: row.full_name ?? 'Sin nombre',
+    categoria,
+    seguidores: row.followers_count ?? 0,
+    engagement,
+    iniciales: getIniciales(row.full_name ?? ''),
+    estado: getEstado(row.id, engagement),
+    bio: row.bio ?? undefined,
+    ubicacion: row.location ?? undefined,
+    avatar_url: row.avatar_url ?? undefined,
+    profile_id: row.profile_id,
+    redes: row.profiles?.redes ?? undefined,
+  }
 }
+
+// Campañas — por ahora usa datos mock hasta conectar la tabla campaigns
+const BASE = 'https://jsonplaceholder.typicode.com'
+const MARCAS = ['Nike Chile', 'Adidas LATAM', 'Samsung CL', 'Coca-Cola', 'Netflix', 'Spotify', 'Apple LATAM', 'Zara']
+const PRESUPUESTOS = ['$500 - $1.000', '$1.000 - $3.000', '$3.000 - $8.000', '$8.000+']
 
 export async function fetchCampanas(): Promise<Campana[]> {
   const res = await fetch(`${BASE}/posts`, { next: { revalidate: 60 } })

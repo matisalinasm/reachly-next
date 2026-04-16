@@ -77,7 +77,15 @@ export default function PerfilPage() {
     const { error } = await supabase.storage.from('avatars').upload(path, file, { upsert: true })
     if (!error) {
       const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(path)
-      await supabase.from('profiles').update({ avatar_url: publicUrl }).eq('id', profile.id)
+      const updates: Promise<any>[] = [
+        supabase.from('profiles').update({ avatar_url: publicUrl }).eq('id', profile.id),
+      ]
+      if (profile.tipo === 'influencer') {
+        updates.push(
+          supabase.from('influencers').upsert({ profile_id: profile.id, avatar_url: publicUrl, full_name: profile.nombre }, { onConflict: 'profile_id' })
+        )
+      }
+      await Promise.all(updates)
       setProfile(p => p ? { ...p, avatar_url: publicUrl } : p)
     }
     setUploadingAvatar(false)
@@ -86,11 +94,29 @@ export default function PerfilPage() {
   async function handleSaveProfile() {
     if (!profile) return
     setSaving(true)
-    await supabase.from('profiles').update({
-      nombre: form.nombre, bio: form.bio, ubicacion: form.ubicacion,
-      redes, categorias, updated_at: new Date().toISOString(),
-    }).eq('id', profile.id)
-    await supabase.auth.updateUser({ data: { nombre: form.nombre } })
+
+    const ops: Promise<any>[] = [
+      supabase.from('profiles').update({
+        nombre: form.nombre, bio: form.bio, ubicacion: form.ubicacion,
+        redes, categorias, updated_at: new Date().toISOString(),
+      }).eq('id', profile.id),
+      supabase.auth.updateUser({ data: { nombre: form.nombre } }),
+    ]
+
+    // Sincronizar tabla influencers si corresponde
+    if (profile.tipo === 'influencer') {
+      ops.push(
+        supabase.from('influencers').upsert({
+          profile_id: profile.id,
+          full_name: form.nombre,
+          bio: form.bio,
+          location: form.ubicacion,
+          updated_at: new Date().toISOString(),
+        }, { onConflict: 'profile_id' })
+      )
+    }
+
+    await Promise.all(ops)
     setProfile(p => p ? { ...p, ...form, redes, categorias } : p)
     setSaving(false)
     setEditOpen(false)
