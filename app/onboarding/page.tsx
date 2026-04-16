@@ -40,48 +40,41 @@ export default function OnboardingPage() {
 
     const tipo = user?.tipo ?? authUser.user_metadata?.tipo ?? 'influencer'
 
-    const ops: Promise<any>[] = [
-      supabase.auth.updateUser({
-        data: { nombre, bio, ubicacion, redes, categorias: selectedCats, objetivos: selectedObjs },
-      }),
-      supabase.from('profiles').upsert({
-        id: authUser.id,
-        nombre,
-        bio,
-        ubicacion,
-        redes,
-        categorias: selectedCats,
-        objetivos: selectedObjs,
-        updated_at: new Date().toISOString(),
-      }),
-    ]
+    await supabase.auth.updateUser({
+      data: { nombre, bio, ubicacion, redes, categorias: selectedCats, objetivos: selectedObjs },
+    })
+
+    await supabase.from('profiles').upsert({
+      id: authUser.id,
+      nombre,
+      bio,
+      ubicacion,
+      redes,
+      categorias: selectedCats,
+      objetivos: selectedObjs,
+      updated_at: new Date().toISOString(),
+    })
 
     if (tipo === 'influencer') {
-      ops.push(
-        supabase.from('influencers').upsert({
-          profile_id: authUser.id,
-          full_name: nombre,
-          bio,
-          location: ubicacion,
-          followers_count: 0,
-          engagement_rate: 0,
-          updated_at: new Date().toISOString(),
-        }, { onConflict: 'profile_id' })
-      )
+      await supabase.from('influencers').upsert({
+        profile_id: authUser.id,
+        full_name: nombre,
+        bio,
+        location: ubicacion,
+        followers_count: 0,
+        engagement_rate: 0,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'profile_id' })
     }
 
     if (tipo === 'marca') {
-      ops.push(
-        supabase.from('brands').upsert({
-          profile_id: authUser.id,
-          company_name: nombre,
-          description: bio,
-          updated_at: new Date().toISOString(),
-        }, { onConflict: 'profile_id' })
-      )
+      await supabase.from('brands').upsert({
+        profile_id: authUser.id,
+        company_name: nombre,
+        description: bio,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'profile_id' })
     }
-
-    await Promise.all(ops)
 
     setUser({ nombre, bio, ubicacion, tipo, redes })
     completeOnboarding()

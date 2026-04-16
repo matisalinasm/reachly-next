@@ -77,15 +77,13 @@ export default function PerfilPage() {
     const { error } = await supabase.storage.from('avatars').upload(path, file, { upsert: true })
     if (!error) {
       const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(path)
-      const updates: Promise<any>[] = [
-        supabase.from('profiles').update({ avatar_url: publicUrl }).eq('id', profile.id),
-      ]
+      await supabase.from('profiles').update({ avatar_url: publicUrl }).eq('id', profile.id)
       if (profile.tipo === 'influencer') {
-        updates.push(
-          supabase.from('influencers').upsert({ profile_id: profile.id, avatar_url: publicUrl, full_name: profile.nombre }, { onConflict: 'profile_id' })
+        await supabase.from('influencers').upsert(
+          { profile_id: profile.id, avatar_url: publicUrl, full_name: profile.nombre },
+          { onConflict: 'profile_id' }
         )
       }
-      await Promise.all(updates)
       setProfile(p => p ? { ...p, avatar_url: publicUrl } : p)
     }
     setUploadingAvatar(false)
@@ -95,38 +93,32 @@ export default function PerfilPage() {
     if (!profile) return
     setSaving(true)
 
-    const ops: Promise<any>[] = [
-      supabase.from('profiles').update({
-        nombre: form.nombre, bio: form.bio, ubicacion: form.ubicacion,
-        redes, categorias, updated_at: new Date().toISOString(),
-      }).eq('id', profile.id),
-      supabase.auth.updateUser({ data: { nombre: form.nombre } }),
-    ]
+    await supabase.from('profiles').update({
+      nombre: form.nombre, bio: form.bio, ubicacion: form.ubicacion,
+      redes, categorias, updated_at: new Date().toISOString(),
+    }).eq('id', profile.id)
+
+    await supabase.auth.updateUser({ data: { nombre: form.nombre } })
 
     if (profile.tipo === 'influencer') {
-      ops.push(
-        supabase.from('influencers').upsert({
-          profile_id: profile.id,
-          full_name: form.nombre,
-          bio: form.bio,
-          location: form.ubicacion,
-          updated_at: new Date().toISOString(),
-        }, { onConflict: 'profile_id' })
-      )
+      await supabase.from('influencers').upsert({
+        profile_id: profile.id,
+        full_name: form.nombre,
+        bio: form.bio,
+        location: form.ubicacion,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'profile_id' })
     }
 
     if (profile.tipo === 'marca') {
-      ops.push(
-        supabase.from('brands').upsert({
-          profile_id: profile.id,
-          company_name: form.nombre,
-          description: form.bio,
-          updated_at: new Date().toISOString(),
-        }, { onConflict: 'profile_id' })
-      )
+      await supabase.from('brands').upsert({
+        profile_id: profile.id,
+        company_name: form.nombre,
+        description: form.bio,
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'profile_id' })
     }
 
-    await Promise.all(ops)
     setProfile(p => p ? { ...p, ...form, redes, categorias } : p)
     setSaving(false)
     setEditOpen(false)
