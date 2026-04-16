@@ -6,6 +6,7 @@ const PUBLIC_ROUTES = [
   '/landing',
   '/login',
   '/registro',
+  '/auth',
   '/sobre-nosotros',
   '/blog',
   '/prensa',
