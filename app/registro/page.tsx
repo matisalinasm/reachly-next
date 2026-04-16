@@ -48,7 +48,7 @@ export default function RegistroPage() {
     setLoading(true)
     setServerError('')
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: form.email,
       password: form.password,
       options: {
@@ -71,6 +71,14 @@ export default function RegistroPage() {
       email: form.email,
       tipo: tipo!,
     })
+
+    // Si hay sesión activa (sin confirmación de email), ir directo al dashboard
+    if (data.session) {
+      router.push(tipo === 'marca' ? '/dashboard/marca' : '/dashboard/influencer')
+      return
+    }
+
+    // Si requiere confirmación de email, mostrar pantalla de éxito
     setStep(3)
   }
 
@@ -171,29 +179,27 @@ export default function RegistroPage() {
             </div>
           )}
 
-          {/* Step 3: Success */}
+          {/* Step 3: Confirmar email */}
           {step === 3 && (
             <div className="animate-fade-up text-center py-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-5 animate-scale-in">
-                <svg className="w-8 h-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              <div className="w-16 h-16 rounded-full bg-[#F0E8FF] dark:bg-[#2A1F45] flex items-center justify-center mx-auto mb-5">
+                <svg className="w-8 h-8 text-[#4A1FA8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
               </div>
-              <h2 className="text-2xl font-bold text-foreground mb-2">
-                ¡Bienvenido, {form.nombre.split(' ')[0]}!
+              <h2 className="text-xl font-bold text-foreground mb-2">
+                Revisá tu email
               </h2>
-              <p className="text-muted-foreground text-sm mb-8">
-                Tu cuenta está lista. Completá tu perfil para empezar.
+              <p className="text-muted-foreground text-sm mb-2">
+                Enviamos un link de confirmación a
+              </p>
+              <p className="text-[#4A1FA8] font-semibold text-sm mb-6">{form.email}</p>
+              <p className="text-muted-foreground text-xs mb-6">
+                Hacé click en el link del email para activar tu cuenta e ingresar a la plataforma.
               </p>
               <Link
-                href="/onboarding"
-                className="block w-full bg-[#4A1FA8] text-white font-semibold text-sm py-3 rounded-xl hover:bg-[#6C3BF5] transition-colors mb-3"
-              >
-                Completar perfil →
-              </Link>
-              <Link
-                href="/"
+                href="/login"
                 className="block w-full border border-border text-muted-foreground text-sm py-3 rounded-xl hover:border-[#B89EF0] transition-colors"
               >
-                Explorar ahora
+                Ir al login
               </Link>
             </div>
           )}
