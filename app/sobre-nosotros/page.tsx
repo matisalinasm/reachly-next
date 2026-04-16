@@ -4,10 +4,10 @@ import Link from 'next/link'
 export const metadata: Metadata = { title: 'Sobre nosotros — Reachly' }
 
 const VALUES = [
-  { icon: '🔍', titulo: 'Transparencia', desc: 'Sin letra pequeña. Métricas reales, precios claros y procesos abiertos para marcas e influencers por igual.' },
-  { icon: '⚡', titulo: 'Velocidad', desc: 'Sabemos que el tiempo es dinero. Diseñamos cada flujo para que puedas pasar de idea a campaña activa en horas.' },
-  { icon: '🤝', titulo: 'Confianza', desc: 'Verificamos cada perfil y protegemos a ambas partes. Las colaboraciones que facilita Reachly están construidas sobre datos y acuerdos reales.' },
-  { icon: '🌎', titulo: 'Impacto LATAM', desc: 'Somos de la región y para la región. Entendemos la cultura, los mercados y los creadores de contenido de Latinoamérica mejor que nadie.' },
+  { titulo: 'Transparencia', desc: 'Sin letra pequeña. Métricas reales, precios claros y procesos abiertos para marcas e influencers por igual.' },
+  { titulo: 'Velocidad', desc: 'Sabemos que el tiempo es dinero. Diseñamos cada flujo para que puedas pasar de idea a campaña activa en horas.' },
+  { titulo: 'Confianza', desc: 'Verificamos cada perfil y protegemos a ambas partes. Las colaboraciones que facilita Reachly están construidas sobre datos y acuerdos reales.' },
+  { titulo: 'Impacto LATAM', desc: 'Somos de la región y para la región. Entendemos la cultura, los mercados y los creadores de contenido de Latinoamérica mejor que nadie.' },
 ]
 
 const TEAM = [
@@ -61,7 +61,6 @@ export default function SobreNosotrosPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {VALUES.map(v => (
               <div key={v.titulo} className="bg-white dark:bg-card border border-border rounded-2xl p-6">
-                <div className="text-[28px] mb-3">{v.icon}</div>
                 <h3 className="text-base font-bold text-foreground mb-2">{v.titulo}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
               </div>

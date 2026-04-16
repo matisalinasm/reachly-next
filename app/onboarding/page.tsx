@@ -75,7 +75,6 @@ export default function OnboardingPage() {
           {/* Step 1: Profile */}
           {step === 1 && (
             <div className="animate-fade-up">
-              <div className="w-12 h-12 rounded-xl bg-[#F0E8FF] dark:bg-[#2A1F45] flex items-center justify-center text-2xl mb-5">👋</div>
               <h2 className="text-xl font-bold text-foreground mb-2">Completá tu perfil</h2>
               <p className="text-muted-foreground text-sm mb-6">Contanos un poco sobre vos.</p>
 
@@ -135,7 +134,6 @@ export default function OnboardingPage() {
           {/* Step 2: Interests */}
           {step === 2 && (
             <div className="animate-fade-up">
-              <div className="w-12 h-12 rounded-xl bg-[#F0E8FF] dark:bg-[#2A1F45] flex items-center justify-center text-2xl mb-5">✨</div>
               <h2 className="text-xl font-bold text-foreground mb-2">Tus intereses</h2>
               <p className="text-muted-foreground text-sm mb-6">Seleccioná las categorías que más te interesan.</p>
 
@@ -185,7 +183,6 @@ export default function OnboardingPage() {
           {/* Step 3: Social networks */}
           {step === 3 && (
             <div className="animate-fade-up">
-              <div className="w-12 h-12 rounded-xl bg-[#F0E8FF] dark:bg-[#2A1F45] flex items-center justify-center text-2xl mb-5">🔗</div>
               <h2 className="text-xl font-bold text-foreground mb-2">Conectá tus redes</h2>
               <p className="text-muted-foreground text-sm mb-6">Opcional — podés completarlo desde tu perfil más tarde.</p>
 
@@ -222,8 +219,8 @@ export default function OnboardingPage() {
           {/* Step 4: Success */}
           {step === 4 && (
             <div className="animate-fade-up text-center py-4">
-              <div className="w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-4xl mx-auto mb-6 animate-scale-in">
-                ✅
+              <div className="w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-6 animate-scale-in">
+                <svg className="w-9 h-9 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               </div>
               <h2 className="text-2xl font-bold text-foreground mb-2">
                 ¡Bienvenido{nombre ? `, ${nombre.split(' ')[0]}` : ''}!

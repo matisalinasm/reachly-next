@@ -53,7 +53,7 @@ export default async function CampanaDetailPage({ params }: { params: Promise<{ 
             {campana.presupuesto}
           </span>
           <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#F0E8FF] text-[#4A1FA8]">
-            🟢 Activa
+            Activa
           </span>
         </div>
 

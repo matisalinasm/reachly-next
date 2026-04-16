@@ -17,7 +17,7 @@ const PERIODO_LABELS: Record<Periodo, string> = {
 }
 
 const CAT_ICONS: Record<string, string> = {
-  Moda: '👗', Tech: '💻', Fitness: '💪', 'Gastronomía': '🍽️', Viajes: '✈️', Gaming: '🎮',
+  Moda: 'MD', Tech: 'TC', Fitness: 'FT', 'Gastronomía': 'GS', Viajes: 'VJ', Gaming: 'GM',
 }
 
 const overallStats = [
@@ -46,7 +46,7 @@ export function TendenciasClient({ influencers }: { influencers: Influencer[] })
       <section className="relative bg-gradient-to-br from-[#4A1FA8] to-[#2E1270] text-center px-[5%] py-14 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 65% 40%, rgba(123,82,212,.3) 0%, transparent 60%)' }} />
         <div className="relative">
-          <div className="inline-block bg-white/10 border border-white/18 rounded-full px-4 py-1 text-xs text-[#C4AEFA] mb-4">🔥 Actualizado en tiempo real</div>
+          <div className="inline-block bg-white/10 border border-white/18 rounded-full px-4 py-1 text-xs text-[#C4AEFA] mb-4">Actualizado en tiempo real</div>
           <h1 className="text-white text-3xl md:text-4xl font-bold mb-3">Tendencias & Ranking</h1>
           <p className="text-white/60 text-base max-w-md mx-auto">
             Los influencers que más crecen, las categorías que dominan y hacia dónde va el mercado.
@@ -168,8 +168,8 @@ export function TendenciasClient({ influencers }: { influencers: Influencer[] })
         {/* Top movers */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
-            { title: '🚀 Mayor crecimiento', list: topUp, up: true },
-            { title: '🔴 Mayor descenso', list: topDown, up: false },
+            { title: 'Mayor crecimiento', list: topUp, up: true },
+            { title: 'Mayor descenso', list: topDown, up: false },
           ].map(({ title, list, up }) => (
             <div key={title} className="bg-card border border-border rounded-2xl p-6">
               <h3 className="text-sm font-bold text-foreground mb-4">{title}</h3>

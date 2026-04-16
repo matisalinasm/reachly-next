@@ -25,7 +25,7 @@ export function CampanasClient({ campanas }: { campanas: Campana[] }) {
       {/* Header */}
       <div className="bg-gradient-to-br from-[#4A1FA8] to-[#2E1270] px-[5%] py-14 text-center">
         <div className="inline-block bg-white/10 border border-white/18 rounded-full px-4 py-1 text-xs text-[#C4AEFA] mb-4">
-          📢 Campañas activas
+          Campañas activas
         </div>
         <h1 className="text-white text-3xl md:text-4xl font-bold mb-3">Campañas disponibles</h1>
         <p className="text-white/60 text-base max-w-md mx-auto">

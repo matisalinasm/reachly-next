@@ -21,13 +21,12 @@ export default function ContactoPage() {
         {/* Info */}
         <div className="space-y-5">
           {[
-            { icon: '📧', titulo: 'Email general', info: 'hola@reachly.app' },
-            { icon: '💼', titulo: 'Marcas y enterprise', info: 'marcas@reachly.app' },
-            { icon: '🌟', titulo: 'Para influencers', info: 'influencers@reachly.app' },
-            { icon: '📰', titulo: 'Prensa', info: 'prensa@reachly.app' },
+            { titulo: 'Email general', info: 'hola@reachly.app' },
+            { titulo: 'Marcas y enterprise', info: 'marcas@reachly.app' },
+            { titulo: 'Para influencers', info: 'influencers@reachly.app' },
+            { titulo: 'Prensa', info: 'prensa@reachly.app' },
           ].map(c => (
-            <div key={c.titulo} className="bg-card border border-border rounded-xl p-4 flex items-center gap-3">
-              <span className="text-xl">{c.icon}</span>
+            <div key={c.titulo} className="bg-card border border-border rounded-xl p-4">
               <div>
                 <p className="text-xs text-muted-foreground">{c.titulo}</p>
                 <p className="text-sm font-medium text-[#7B52D4]">{c.info}</p>
@@ -44,7 +43,9 @@ export default function ContactoPage() {
         <div className="lg:col-span-2">
           {sent ? (
             <div className="bg-card border border-border rounded-2xl p-10 text-center">
-              <div className="text-5xl mb-4">✅</div>
+              <div className="w-14 h-14 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-7 h-7 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </div>
               <h2 className="text-xl font-bold text-foreground mb-2">¡Mensaje enviado!</h2>
               <p className="text-muted-foreground text-sm">Te respondemos en menos de 24 horas hábiles.</p>
             </div>

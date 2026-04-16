@@ -181,7 +181,7 @@ export default function ComparadorPage() {
               <tbody>
                 {[
                   { label: 'Categoría', vals: selected.map(i => i.categoria) },
-                  { label: 'Estado', vals: selected.map(i => i.estado === 'disponible' ? '🟢 Disponible' : i.estado === 'en-campaña' ? '🟡 En campaña' : '⭐ Top') },
+                  { label: 'Estado', vals: selected.map(i => i.estado === 'disponible' ? 'Disponible' : i.estado === 'en-campaña' ? 'En campaña' : 'Top') },
                   { label: 'Seguidores', vals: selected.map(i => i.seguidores >= 1000 ? `${(i.seguidores / 1000).toFixed(0)}K` : `${i.seguidores}`) },
                   { label: 'Precio aprox.', vals: selected.map(i => `$${(i.seguidores / 1000 * 15).toFixed(0)}`) },
                 ].map(row => (
@@ -200,7 +200,7 @@ export default function ComparadorPage() {
 
       {selected.length < 2 && !showPicker && (
         <div className="text-center py-16 text-muted-foreground">
-          <div className="text-4xl mb-3">⚖️</div>
+          <div className="text-sm font-semibold text-muted-foreground mb-3">vs</div>
           <p className="text-sm">Agregá al menos 2 influencers para comparar</p>
         </div>
       )}

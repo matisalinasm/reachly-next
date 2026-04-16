@@ -11,12 +11,12 @@ const JOBS = [
 ]
 
 const PERKS = [
-  { icon: '🌍', titulo: '100% remoto', desc: 'Trabajá desde donde quieras en LATAM.' },
-  { icon: '📚', titulo: 'Budget de aprendizaje', desc: '$500 USD/año para cursos y libros.' },
-  { icon: '🏥', titulo: 'Obra social', desc: 'Cobertura médica para vos y tu familia.' },
-  { icon: '🎮', titulo: 'Equipamiento', desc: 'Laptop + setup para trabajar cómodo.' },
-  { icon: '⏰', titulo: 'Horario flexible', desc: 'Resultados sobre horas en pantalla.' },
-  { icon: '📈', titulo: 'Equity', desc: 'Opciones de participación en la empresa.' },
+  { titulo: '100% remoto', desc: 'Trabajá desde donde quieras en LATAM.' },
+  { titulo: 'Budget de aprendizaje', desc: '$500 USD/año para cursos y libros.' },
+  { titulo: 'Obra social', desc: 'Cobertura médica para vos y tu familia.' },
+  { titulo: 'Equipamiento', desc: 'Laptop + setup para trabajar cómodo.' },
+  { titulo: 'Horario flexible', desc: 'Resultados sobre horas en pantalla.' },
+  { titulo: 'Equity', desc: 'Opciones de participación en la empresa.' },
 ]
 
 export default function CareersPage() {
@@ -32,7 +32,6 @@ export default function CareersPage() {
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-12">
         {PERKS.map(p => (
           <div key={p.titulo} className="bg-card border border-border rounded-xl p-4">
-            <div className="text-2xl mb-2">{p.icon}</div>
             <p className="text-sm font-bold text-foreground">{p.titulo}</p>
             <p className="text-xs text-muted-foreground mt-1">{p.desc}</p>
           </div>

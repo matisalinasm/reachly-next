@@ -28,7 +28,7 @@ export default async function DashboardInfluencerPage() {
       {/* Welcome */}
       <div className="bg-gradient-to-br from-[#4A1FA8] to-[#2E1270] rounded-2xl p-7 mb-7 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-white text-2xl font-bold mb-1">¡Hola, Matías! 👋</h1>
+          <h1 className="text-white text-2xl font-bold mb-1">Hola, Matías</h1>
           <p className="text-white/60 text-sm">Tenés 3 campañas activas y 2 postulaciones pendientes.</p>
         </div>
         <div className="flex gap-3">
@@ -79,9 +79,9 @@ export default async function DashboardInfluencerPage() {
           <h2 className="text-base font-bold text-foreground mb-4">Notificaciones</h2>
           <div className="space-y-3">
             {[
-              { icon: '🎉', msg: 'Nike Chile aceptó tu postulación', time: '5 min' },
-              { icon: '📢', msg: 'Nueva campaña en tu categoría', time: '1h' },
-              { icon: '👀', msg: 'Adidas vio tu perfil', time: '3h' },
+              { icon: '!', msg: 'Nike Chile aceptó tu postulación', time: '5 min' },
+              { icon: '+', msg: 'Nueva campaña en tu categoría', time: '1h' },
+              { icon: 'i', msg: 'Adidas vio tu perfil', time: '3h' },
             ].map((n, i) => (
               <div key={i} className="flex items-start gap-3 py-2 border-b border-border last:border-0">
                 <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-sm flex-shrink-0">{n.icon}</div>

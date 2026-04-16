@@ -12,13 +12,11 @@ type Step = 1 | 2 | 3
 const TIPOS = [
   {
     id: 'influencer' as Tipo,
-    icon: '🎤',
     title: 'Soy influencer',
     desc: 'Quiero conectar con marcas y conseguir campañas pagas.',
   },
   {
     id: 'marca' as Tipo,
-    icon: '🏢',
     title: 'Soy una marca',
     desc: 'Quiero encontrar creadores para mis campañas de marketing.',
   },
@@ -107,7 +105,6 @@ export default function RegistroPage() {
                         : 'border-border hover:border-[#B89EF0] hover:bg-accent'
                     )}
                   >
-                    <span className="text-3xl">{t.icon}</span>
                     <div>
                       <div className="text-sm font-semibold text-foreground">{t.title}</div>
                       <div className="text-xs text-muted-foreground mt-0.5">{t.desc}</div>
@@ -177,8 +174,8 @@ export default function RegistroPage() {
           {/* Step 3: Success */}
           {step === 3 && (
             <div className="animate-fade-up text-center py-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-3xl mx-auto mb-5 animate-scale-in">
-                🎉
+              <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-5 animate-scale-in">
+                <svg className="w-8 h-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               </div>
               <h2 className="text-2xl font-bold text-foreground mb-2">
                 ¡Bienvenido, {form.nombre.split(' ')[0]}!

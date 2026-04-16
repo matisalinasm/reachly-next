@@ -152,9 +152,7 @@ export default function PerfilPage() {
             <h2 className="text-sm font-bold text-foreground mb-4">Portfolio de contenido</h2>
             <div className="grid grid-cols-3 gap-2">
               {[1, 2, 3, 4, 5, 6].map(i => (
-                <div key={i} className="aspect-square rounded-xl bg-gradient-to-br from-[#F0E8FF] to-[#E8E0FB] dark:from-[#2A1F45] dark:to-[#1A1428] flex items-center justify-center text-2xl">
-                  {['📸', '🎬', '✨', '🌿', '👗', '🌍'][i - 1]}
-                </div>
+                <div key={i} className="aspect-square rounded-xl bg-gradient-to-br from-[#F0E8FF] to-[#E8E0FB] dark:from-[#2A1F45] dark:to-[#1A1428]" />
               ))}
             </div>
           </div>

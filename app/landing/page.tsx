@@ -120,7 +120,7 @@ export default function LandingPage() {
             {/* Match card */}
             <div className="animate-float-a absolute top-0 left-8 w-[200px] bg-white/[.12] backdrop-blur-sm border border-white/[.15] rounded-2xl p-4 shadow-xl">
               <div className="flex items-center gap-2 text-white text-xs font-semibold mb-3">
-                <span>🎉</span>¡Nuevo match!
+                Nuevo match
               </div>
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold text-white border-2 border-white/20" style={{ background: '#4A1FA8' }}>NC</div>
@@ -172,7 +172,7 @@ export default function LandingPage() {
             {/* Notif card */}
             <div className="animate-float-d absolute bottom-4 right-4 w-[204px] bg-white/[.12] backdrop-blur-sm border border-white/[.15] rounded-2xl p-4 shadow-xl">
               <div className="flex items-start gap-2.5">
-                <div className="w-[30px] h-[30px] rounded-lg flex items-center justify-center text-sm flex-shrink-0" style={{ background: 'rgba(29,158,117,.25)' }}>📊</div>
+                <div className="w-[30px] h-[30px] rounded-lg flex items-center justify-center text-[10px] font-bold text-[#5BE8B8] flex-shrink-0" style={{ background: 'rgba(29,158,117,.25)' }}>+</div>
                 <div>
                   <p className="text-[11px] text-white/80 leading-snug">Reporte semanal listo — campaña superó el objetivo.</p>
                   <p className="text-[10px] text-white/30 mt-1">Hace 5 min</p>
@@ -210,7 +210,9 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
             {/* Marcas */}
             <div className="bg-white dark:bg-card border border-border rounded-2xl p-8 hover:shadow-[0_8px_32px_rgba(74,31,168,.12)] hover:-translate-y-1 transition-all duration-200">
-              <div className="w-[52px] h-[52px] rounded-2xl bg-[#F0E8FF] dark:bg-[#2A1F45] flex items-center justify-center text-[22px] mb-5">🏢</div>
+              <div className="w-[52px] h-[52px] rounded-2xl bg-[#F0E8FF] dark:bg-[#2A1F45] flex items-center justify-center mb-5">
+                <svg className="w-6 h-6 text-[#4A1FA8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" /></svg>
+              </div>
               <h3 className="text-xl font-bold text-foreground mb-2">Para Marcas</h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">Encuentra a los creadores perfectos, gestiona negociaciones y mide el ROI de cada campaña en tiempo real.</p>
               <ul className="space-y-2.5 mb-7">
@@ -227,7 +229,9 @@ export default function LandingPage() {
             </div>
             {/* Influencers — featured */}
             <div className="rounded-2xl p-8 hover:-translate-y-1 transition-all duration-200" style={{ background: 'linear-gradient(135deg, #4A1FA8 0%, #2E1270 100%)' }}>
-              <div className="w-[52px] h-[52px] rounded-2xl flex items-center justify-center text-[22px] mb-5" style={{ background: 'rgba(255,255,255,.15)' }}>✨</div>
+              <div className="w-[52px] h-[52px] rounded-2xl flex items-center justify-center mb-5" style={{ background: 'rgba(255,255,255,.15)' }}>
+                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+              </div>
               <h3 className="text-xl font-bold text-white mb-2">Para Influencers</h3>
               <p className="text-sm text-white/65 leading-relaxed mb-6">Monetiza tu audiencia conectándote con marcas que se alinean con tu contenido y valores. Siempre gratis.</p>
               <ul className="space-y-2.5 mb-7">
@@ -244,7 +248,9 @@ export default function LandingPage() {
             </div>
             {/* Agencias */}
             <div className="bg-white dark:bg-card border border-border rounded-2xl p-8 hover:shadow-[0_8px_32px_rgba(74,31,168,.12)] hover:-translate-y-1 transition-all duration-200">
-              <div className="w-[52px] h-[52px] rounded-2xl bg-[#F0E8FF] dark:bg-[#2A1F45] flex items-center justify-center text-[22px] mb-5">🏆</div>
+              <div className="w-[52px] h-[52px] rounded-2xl bg-[#F0E8FF] dark:bg-[#2A1F45] flex items-center justify-center mb-5">
+                <svg className="w-6 h-6 text-[#4A1FA8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>
+              </div>
               <h3 className="text-xl font-bold text-foreground mb-2">Para Agencias</h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">Gestiona múltiples clientes y campañas desde un único panel con acceso multi-cuenta y reportes white-label.</p>
               <ul className="space-y-2.5 mb-7">

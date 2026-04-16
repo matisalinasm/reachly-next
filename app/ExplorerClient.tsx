@@ -41,7 +41,7 @@ export function ExplorerClient({ initialInfluencers }: Props) {
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 65% 40%, rgba(123,82,212,.3) 0%, transparent 60%)' }} />
         <div className="relative">
           <div className="inline-block bg-white/10 border border-white/18 rounded-full px-5 py-1.5 text-xs text-[#C4AEFA] mb-4 tracking-wide">
-            🚀 Plataforma #1 de influencer marketing en LATAM
+            Plataforma #1 de influencer marketing en LATAM
           </div>
           <h1 className="text-white text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-3">
             Conecta marcas<br />con creadores

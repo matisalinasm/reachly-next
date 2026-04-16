@@ -27,7 +27,7 @@ export default async function DashboardMarcaPage() {
       {/* Welcome */}
       <div className="bg-gradient-to-br from-[#4A1FA8] to-[#2E1270] rounded-2xl p-7 mb-7 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-white text-2xl font-bold mb-1">Hola, Nike Chile 👋</h1>
+          <h1 className="text-white text-2xl font-bold mb-1">Hola, Nike Chile</h1>
           <p className="text-white/60 text-sm">Tenés 3 campañas activas y 12 nuevos matches esta semana.</p>
         </div>
         <div className="flex gap-3">
@@ -80,7 +80,7 @@ export default async function DashboardMarcaPage() {
 
         {/* Recent matches */}
         <div className="bg-card border border-border rounded-xl p-5">
-          <h2 className="text-base font-bold text-foreground mb-4">🤝 Matches recientes</h2>
+          <h2 className="text-base font-bold text-foreground mb-4">Matches recientes</h2>
           <div className="space-y-3">
             {influencers.slice(0, 4).map(inf => (
               <Link key={inf.id} href={`/influencer/${inf.id}`} className="flex items-center gap-3 py-1.5 hover:opacity-80 transition-opacity">

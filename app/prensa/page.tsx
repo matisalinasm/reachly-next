@@ -49,8 +49,8 @@ export default function PrensaPage() {
         <h2 className="text-lg font-bold text-foreground mb-2">Contacto de prensa</h2>
         <p className="text-muted-foreground text-sm mb-4">¿Sos periodista o trabajás en medios? Estamos disponibles para entrevistas, datos exclusivos y demos.</p>
         <div className="space-y-1 text-sm">
-          <p className="text-foreground">📧 <span className="text-[#7B52D4]">prensa@reachly.app</span></p>
-          <p className="text-foreground">📱 <span className="text-[#7B52D4]">+54 11 4000-0000</span></p>
+          <p className="text-foreground">Email: <span className="text-[#7B52D4]">prensa@reachly.app</span></p>
+          <p className="text-foreground">Tel: <span className="text-[#7B52D4]">+54 11 4000-0000</span></p>
         </div>
       </div>
     </div>

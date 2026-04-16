@@ -31,7 +31,7 @@ export default function FavoritosPage() {
 
   return (
     <div className="max-w-[1100px] mx-auto px-[5%] py-12">
-      <h1 className="text-2xl font-bold text-foreground mb-1">❤️ Guardados</h1>
+      <h1 className="text-2xl font-bold text-foreground mb-1">Guardados</h1>
       <p className="text-muted-foreground text-sm mb-7">
         {favInfs.length + favCamps.length} items guardados
       </p>
@@ -78,7 +78,7 @@ export default function FavoritosPage() {
 function EmptyState({ type }: { type: Tab }) {
   return (
     <div className="text-center py-20">
-      <div className="text-5xl mb-4">{type === 'influencers' ? '🤍' : '📭'}</div>
+      <div className="w-12 h-12 rounded-full bg-muted mx-auto mb-4" />
       <h3 className="text-base font-semibold text-foreground mb-2">
         {type === 'influencers' ? 'Sin influencers guardados' : 'Sin campañas guardadas'}
       </h3>
