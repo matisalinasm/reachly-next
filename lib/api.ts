@@ -77,30 +77,63 @@ export async function fetchInfluencer(id: number): Promise<Influencer | null> {
   }
 }
 
-// Campañas — por ahora usa datos mock hasta conectar la tabla campaigns
-const BASE = 'https://jsonplaceholder.typicode.com'
-const MARCAS = ['Nike Chile', 'Adidas LATAM', 'Samsung CL', 'Coca-Cola', 'Netflix', 'Spotify', 'Apple LATAM', 'Zara']
-const PRESUPUESTOS = ['$500 - $1.000', '$1.000 - $3.000', '$3.000 - $8.000', '$8.000+']
-
 export async function fetchCampanas(): Promise<Campana[]> {
-  const res = await fetch(`${BASE}/posts`, { next: { revalidate: 60 } })
-  if (!res.ok) throw new Error('Error fetching campanas')
-  const posts = await res.json()
-  return posts.slice(0, 20).map((p: { id: number; title: string; body: string }, i: number) => ({
-    id: p.id,
-    marca: MARCAS[i % MARCAS.length],
-    titulo: p.title.charAt(0).toUpperCase() + p.title.slice(1),
-    descripcion: p.body,
-    categoria: CATEGORIAS[i % CATEGORIAS.length],
-    presupuesto: PRESUPUESTOS[i % PRESUPUESTOS.length],
-    iniciales: MARCAS[i % MARCAS.length].split(' ').map(w => w[0]).join('').slice(0, 2),
-    estado: 'activa' as const,
-  }))
+  const { data, error } = await supabase
+    .from('campaigns')
+    .select(`
+      id, title, description, budget_range, status, min_followers,
+      brands(profiles(nombre)),
+      campaign_categories(name)
+    `)
+    .order('created_at', { ascending: false })
+
+  if (error || !data || data.length === 0) return []
+
+  return data.map((row: any) => {
+    const marca = row.brands?.profiles?.nombre ?? 'Marca'
+    const categoria = row.campaign_categories?.name ?? 'General'
+    return {
+      id: row.id,
+      marca,
+      titulo: row.title ?? '',
+      descripcion: row.description ?? '',
+      categoria,
+      presupuesto: row.budget_range ?? 'A convenir',
+      iniciales: marca.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase(),
+      estado: (row.status as 'activa' | 'cerrada' | 'borrador') ?? 'activa',
+      seguidoresMin: row.min_followers ?? undefined,
+    }
+  })
 }
 
 export async function fetchCampana(id: number): Promise<Campana | null> {
-  const campanas = await fetchCampanas()
-  return campanas.find(c => c.id === id) ?? null
+  const { data, error } = await supabase
+    .from('campaigns')
+    .select(`
+      id, title, description, budget_range, status, min_followers,
+      brands(profiles(nombre)),
+      campaign_categories(name)
+    `)
+    .eq('id', id)
+    .single()
+
+  if (error || !data) return null
+
+  const row = data as any
+  const marca = row.brands?.profiles?.nombre ?? 'Marca'
+  const categoria = row.campaign_categories?.name ?? 'General'
+
+  return {
+    id: row.id,
+    marca,
+    titulo: row.title ?? '',
+    descripcion: row.description ?? '',
+    categoria,
+    presupuesto: row.budget_range ?? 'A convenir',
+    iniciales: marca.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase(),
+    estado: (row.status as 'activa' | 'cerrada' | 'borrador') ?? 'activa',
+    seguidoresMin: row.min_followers ?? undefined,
+  }
 }
 
 export { CATEGORIA_COLORS }
