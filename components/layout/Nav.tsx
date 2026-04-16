@@ -126,7 +126,7 @@ export function Nav() {
       >
         {/* Brand */}
         <Link href="/landing" className="hover:opacity-90 transition-opacity flex-shrink-0">
-          <img src="/logo-reachly-white.svg" alt="Reachly" className="h-7 w-auto" />
+          <img src="/logo-reachly-white.svg" alt="Reachly" className="h-9 w-auto" />
         </Link>
 
         {/* Desktop links */}
@@ -147,7 +147,7 @@ export function Nav() {
               <a
                 key={href}
                 href={href}
-                className="text-sm text-white/70 hover:text-white transition-colors duration-150"
+                className="text-base text-white/70 hover:text-white transition-colors duration-150"
               >
                 {label}
               </a>
@@ -156,7 +156,7 @@ export function Nav() {
                 key={href}
                 href={href}
                 className={cn(
-                  'text-sm transition-colors duration-150',
+                  'text-base transition-colors duration-150',
                   pathname === href ? 'text-white font-medium' : 'text-white/70 hover:text-white'
                 )}
               >
