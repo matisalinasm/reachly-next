@@ -51,6 +51,20 @@
   --color-brand-dark: #2E1270;
   --color-brand-hover: #6C3BF5;
   --color-brand-soft: #F0E8FF;
+
+  /* ── Animation easing tokens (Emil's philosophy) ──────────── */
+  --ease-out-expo: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* ── Shadow system ───────────────────────────────────────── */
+  --shadow-brand-sm: 0 2px 8px rgba(74,31,168,.15);
+  --shadow-brand-md: 0 8px 32px rgba(74,31,168,.18);
+  --shadow-brand-lg: 0 20px 60px rgba(74,31,168,.25);
+  --shadow-green-sm: 0 4px 16px rgba(29,158,117,.20);
+
+  /* ── Glassmorphism ───────────────────────────────────────── */
+  --shadow-glass: inset 0 1px 0 rgba(255,255,255,.12), 0 8px 32px rgba(0,0,0,.18);
 }
 
 /* ══ LIGHT MODE ══════════════════════════════════════════════════ */
@@ -123,11 +137,9 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    @apply bg-background text-foreground antialiased font-sans;
   }
   html {
-    @apply font-sans;
     scroll-behavior: smooth;
   }
   a {
@@ -180,3 +192,30 @@
 .animate-float-b { animation: floatB 5s ease-in-out infinite; }
 .animate-float-c { animation: floatC 4.5s ease-in-out infinite; }
 .animate-float-d { animation: floatD 6s ease-in-out infinite; }
+
+/* ── Reduced motion ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-a,
+  .animate-float-b,
+  .animate-float-c,
+  .animate-float-d { animation: none; }
+  .animate-marquee  { animation-play-state: paused; }
+}
+
+/* ── Hover active states (touch-safe) ───────────────────────── */
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift {
+    transition: transform 200ms var(--ease-out-expo), box-shadow 200ms var(--ease-out-expo);
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-brand-md);
+  }
+}
+
+/* ── Shimmer border for featured card ───────────────────────── */
+@keyframes shimmer-border {
+  0%, 100% { opacity: .6; }
+  50%       { opacity: 1; }
+}
+.animate-shimmer-border { animation: shimmer-border 2.5s ease-in-out infinite; }

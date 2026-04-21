@@ -34,11 +34,13 @@ export function Footer() {
               La plataforma que conecta marcas con los mejores creadores de contenido de LATAM.
             </p>
             <div className="flex gap-2">
-              {['in', 'ig', 'tw', 'yt'].map(s => (
+              {(['in', 'ig', 'tw', 'yt'] as const).map(s => (
                 <a
                   key={s}
                   href="#"
-                  className="w-[34px] h-[34px] rounded-lg bg-white/6 flex items-center justify-center text-xs font-bold text-white/50 hover:bg-[rgba(123,82,212,0.4)] hover:text-white transition-all duration-150"
+                  aria-label={s === 'in' ? 'LinkedIn' : s === 'ig' ? 'Instagram' : s === 'tw' ? 'Twitter/X' : 'YouTube'}
+                  className="w-[34px] h-[34px] min-h-[34px] rounded-lg bg-white/6 flex items-center justify-center text-xs font-bold text-white/50 hover:bg-[rgba(123,82,212,0.4)] hover:text-white hover:-translate-y-0.5 active:scale-90 transition-all"
+                  style={{ transition: 'all 200ms cubic-bezier(0.23, 1, 0.32, 1)' }}
                 >
                   {s}
                 </a>
@@ -74,7 +76,11 @@ function FooterCol({ title, links }: { title: string; links: { href: string; lab
       <ul className="flex flex-col gap-2.5">
         {links.map(l => (
           <li key={l.href}>
-            <Link href={l.href} className="text-sm text-white/35 hover:text-white/80 transition-colors">
+            <Link
+              href={l.href}
+              className="text-sm text-white/35 hover:text-white/80 underline-offset-2 hover:underline"
+              style={{ transition: 'color 180ms ease, text-decoration 180ms ease' }}
+            >
               {l.label}
             </Link>
           </li>
