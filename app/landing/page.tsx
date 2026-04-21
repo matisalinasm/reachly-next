@@ -425,6 +425,9 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ══ EQUIPO ═══════════════════════════════════════════════════ */}
+      <Equipo />
+
       {/* ══ CTA FINAL ════════════════════════════════════════════════ */}
       <section className="bg-gradient-to-br from-[#4A1FA8] to-[#2E1270] text-center px-[5%] py-24">
         <div className="max-w-[600px] mx-auto">
